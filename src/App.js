@@ -12,9 +12,41 @@ import {
  } from "./game_params";
 
 function App() {
+  const canvasRef = useRef();
+  function gameInit() {
+    
+  }
+  function endGame(){
+
+  }
+  function snakeControll(){
+
+  }
+  function ratInit(){
+
+  }
+  function detectObstacle(){
+
+  }
+  function detectRat(){
+
+  }
+  function loop(){
+
+  }
+  useEffect(() => {
+
+  })
+
   return (
-    <div className="snake-game">
-      snake-game
+    <div role="button" tabIndex="0" onKeyDown={e => snakeControll(e)}>
+      <canvas
+        style={{ border: '1px solid black'}}
+        ref={canvasRef}
+        width={`${BOARD_SIZE[0]}px`}
+        height={`${BOARD_SIZE[1]}px`}
+      />  
+      <button onClick={gameInit}>Start Game</button> 
     </div>
   );
 }
