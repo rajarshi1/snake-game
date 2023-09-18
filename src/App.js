@@ -32,13 +32,12 @@ function App() {
     setGameOver(true);
   }
 
-  // function snakeControll({ keycode }){
-  //   setDir(CONTROLS[keycode]);
-  // }
-  const snakeControll = ({ keyCode }) => setDir(CONTROLS[keyCode]);
+  function snakeControll({ keyCode }){
+    return setDir(CONTROLS[keyCode]);
+  }
 
   function ratInit(){
-
+    return rat.map((_,i) => Math.floor(Math.random() * (BOARD_SIZE[i]) / SCALE));
   }
 
   function detectObstacle(obstacle, snk = snake){
@@ -49,19 +48,37 @@ function App() {
         || obstacle[1] < 0
       ){ 
         return true;
-      } else {return false};    
+      }  
+      // } else {return false};    
+      for (const part of snk){
+        if(obstacle[0 === part[0] && obstacle[1] === part[1]]){ return true}; 
+      } 
+    return false;    
   }
 
-  function detectRat(){
-
+  function detectRat(newSnake){
+    if(newSnake[0][0] == rat[0] && newSnake[0][1] === rat[1]){
+      let newRat = ratInit();
+      while (detectObstacle(newRat, newSnake)){
+        newRat = ratInit();
+      }
+      setRat(newRat);
+      return true;
+    }
+    return false; 
   }
 
   function loop(){
     const snakeCopy = JSON.parse(JSON.stringify(snake));
     const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
     snakeCopy.unshift(newSnakeHead);
-    if (detectObstacle(newSnakeHead)){endGame();} 
-    snakeCopy.pop();
+    if (detectObstacle(newSnakeHead)){
+      endGame();
+    } 
+    if (!detectRat(snakeCopy)){
+      snakeCopy.pop();
+    }
+    // snakeCopy.pop();
     setSnake(snakeCopy);
   }
 
@@ -69,9 +86,9 @@ function App() {
     const context = canvasRef.current.getContext('2d');
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    context.fillStyle = 'pink';
+    context.fillStyle = 'green';
     snake.forEach(([x,y]) => context.fillRect(x, y, 1, 1));
-    context.fillStyle = 'lightblue';
+    context.fillStyle = 'red';
     context.fillRect(rat[0], rat[1], 1, 1); 
   }, [snake, rat, gameOver]);
 
