@@ -20,30 +20,51 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
 
   function gameInit() {
-    
+    setSnake(START_AT);
+    setRat(RAT_POP);
+    setDir([0,-1]);
+    setLevel(SPEED);
+    setGameOver(false);
   }
-  function endGame(){
 
+  function endGame(){
+    setLevel(null);
+    setGameOver(true);
   }
-  function snakeControll({ keycode }){
-    return setDir(CONTROLS[keycode]);
-  }
+
+  // function snakeControll({ keycode }){
+  //   setDir(CONTROLS[keycode]);
+  // }
+  const snakeControll = ({ keyCode }) => setDir(CONTROLS[keyCode]);
+
   function ratInit(){
 
   }
-  function detectObstacle(){
 
+  function detectObstacle(obstacle, snk = snake){
+      if(
+        obstacle[0] * SCALE >= BOARD_SIZE[0]
+        || obstacle[0] < 0
+        || obstacle[1] * SCALE >= BOARD_SIZE[1]
+        || obstacle[1] < 0
+      ){ 
+        return true;
+      } else {return false};    
   }
+
   function detectRat(){
 
   }
+
   function loop(){
     const snakeCopy = JSON.parse(JSON.stringify(snake));
     const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
     snakeCopy.unshift(newSnakeHead);
+    if (detectObstacle(newSnakeHead)){endGame();} 
     snakeCopy.pop();
     setSnake(snakeCopy);
   }
+
   useEffect(() => {
     const context = canvasRef.current.getContext('2d');
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
@@ -64,6 +85,7 @@ function App() {
         width={`${BOARD_SIZE[0]}px`}
         height={`${BOARD_SIZE[1]}px`}
       />  
+      {gameOver && <div>GAME OVER!</div>}
       <button onClick={gameInit}>Start Game</button> 
     </div>
   );
