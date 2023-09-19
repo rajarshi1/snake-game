@@ -94,6 +94,16 @@ function App() {
     context.fillRect(rat[0], rat[1], 1, 1); 
   }, [snake, rat, gameOver]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      snakeControll(e);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   useIntervalHook(() => loop(), level )
 
   return (
