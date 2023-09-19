@@ -1,6 +1,6 @@
 
 const SCALE = 40;
-const SPEED = 100; 
+const SPEED = 500; 
 const BOARD_SIZE = [800, 700];
 const START_AT = [
     [8,7],

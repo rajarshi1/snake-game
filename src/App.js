@@ -15,7 +15,7 @@ function App() {
   const [snake, setSnake] = useState(START_AT);
   const [rat, setRat] = useState(RAT_POP);
   const [dir, setDir] = useState([0,-1]);
-  const [level, setLevel] = useState(500);
+  const [level, setLevel] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
 
@@ -96,6 +96,7 @@ function App() {
     context.fillRect(rat[0], rat[1], 1, 1); 
   }, [snake, rat, gameOver]);
 
+  // for auto seleting window on game-start
   useEffect(() => {
     const handleKeyDown = (e) => {
       snakeControll(e);
