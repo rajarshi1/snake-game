@@ -52,7 +52,9 @@ function App() {
       }  
       // } else {return false};    
       for (const part of snk){
-        if(obstacle[0 === part[0] && obstacle[1] === part[1]]){ return true}; 
+        if(obstacle[0] === part[0] && obstacle[1] === part[1]){ 
+          return true
+        }; 
       } 
     return false;    
   }
