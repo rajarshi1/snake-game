@@ -18,6 +18,7 @@ function App() {
   const [dir, setDir] = useState([0,-1]);
   const [level, setLevel] = useState(500);
   const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   function gameInit() {
     setSnake(START_AT);
@@ -25,6 +26,7 @@ function App() {
     setDir([0,-1]);
     setLevel(SPEED);
     setGameOver(false);
+    setScore(0); 
   }
 
   function endGame(){
@@ -63,6 +65,7 @@ function App() {
         newRat = ratInit();
       }
       setRat(newRat);
+      setScore(score + 1);
       return true;
     }
     return false; 
@@ -101,7 +104,8 @@ function App() {
         ref={canvasRef}
         width={`${BOARD_SIZE[0]}px`}
         height={`${BOARD_SIZE[1]}px`}
-      />  
+      />
+      <div>Score: {score}</div>  
       {gameOver && <div>GAME OVER!</div>}
       <button onClick={gameInit}>Start Game</button> 
     </div>
