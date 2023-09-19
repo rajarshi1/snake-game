@@ -119,7 +119,7 @@ function App() {
       />
       <div>Score: {score}</div>  
       {gameOver && <div>GAME OVER!</div>}
-      <button onClick={gameInit}>Start Game test</button> 
+      <button onClick={gameInit}>Start Game</button> 
     </div>
   );
 }
