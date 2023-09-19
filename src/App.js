@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useRef, useEffect  } from "react";
 import { useIntervalHook } from "./intervalHook";
@@ -59,7 +58,7 @@ function App() {
   }
 
   function detectRat(newSnake){
-    if(newSnake[0][0] == rat[0] && newSnake[0][1] === rat[1]){
+    if(newSnake[0][0] === rat[0] && newSnake[0][1] === rat[1]){
       let newRat = ratInit();
       while (detectObstacle(newRat, newSnake)){
         newRat = ratInit();
